@@ -62,3 +62,116 @@ Attachlink streamlines the attachment process by providing:
 ---
 
 ## 📁 Project Structure
+
+```
+attachlink/
+├── accounts/          # User auth, registration, login, dashboards
+├── attachments/       # Attachment positions, applications
+├── companies/         # Company profiles and dashboard
+├── students/          # Student profiles and dashboard
+├── reports/           # Tasks, reports, feedback
+├── core/              # Project settings, URLs, WSGI/ASGI
+├── templates/         # HTML templates (organized by app)
+├── manage.py
+├── requirements.txt
+├── attachlink-data.json    # Sample database fixture
+└── .env               # Local secrets (not committed)
+```
+
+---
+
+## 🚀 Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Youngosano19/attachlink.git
+cd attachlink
+```
+
+### 2. Create and activate a virtual environment
+
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**macOS / Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Create a `.env` file in the project root
+
+```env
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+```
+
+Generate a secure secret key with:
+
+```bash
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
+### 5. Apply migrations
+
+```bash
+python manage.py migrate
+```
+
+### 6. Load the sample database (optional)
+
+```bash
+python manage.py loaddata attachlink-data.json
+```
+
+### 7. Create a superuser (if not using the sample data)
+
+```bash
+python manage.py createsuperuser
+```
+
+### 8. Run the development server
+
+```bash
+python manage.py runserver
+```
+
+### 9. Open in your browser
+
+- App: http://127.0.0.1:8000/
+- Admin: http://127.0.0.1:8000/admin/
+
+---
+
+## 🔐 Environment & Security
+
+This project uses environment variables to keep secrets out of version control.
+
+- `.env` stores `SECRET_KEY` and `DEBUG`
+- `.env` is **excluded** from Git via `.gitignore`
+- `db.sqlite3`, `media/`, `__pycache__/`, and `venv/` are also excluded
+
+**Never commit your `.env` file or real credentials.**
+
+---
+
+## 👤 Author
+
+**Peter Young Osano**
+- GitHub: [@Youngosano19](https://github.com/Youngosano19)
+
+---
+
+## 📄 License
+
+This project was built for academic purposes. Contact the author for reuse or collaboration.
