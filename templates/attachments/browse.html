@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-3">
+  <div class="col-12 d-flex justify-content-between align-items-center">
+    <h2>Browse Attachment Positions</h2>
+  </div>
+  <hr>
+</div>
+
+<div class="row">
+  {% if positions %}
+    {% for position in positions %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ position.title }}</h5>
+          <p class="text-muted mb-1">{{ position.company.company_name }}</p>
+          <p class="text-muted small mb-2">{{ position.department }} — {{ position.duration }}</p>
+          <p class="card-text small">{{ position.description|truncatechars:100 }}</p>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+          <span class="badge bg-success">{{ position.slots }} slot(s)</span>
+          <a href="{% url 'position_detail' position.pk %}" class="btn btn-primary btn-sm">View & Apply</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="col-12 text-center py-5">
+      <h5 class="text-muted">No positions available at the moment.</h5>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

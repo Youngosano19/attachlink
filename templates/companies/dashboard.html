@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-3">
+  <div class="col-12">
+    <h2>Welcome, {{ profile.company_name }}! 👋</h2>
+    <p class="text-muted">{{ profile.industry }} — {{ profile.location }}</p>
+    {% if not profile.is_approved %}
+      <div class="alert alert-warning">Your company is pending admin approval. Some features may be limited.</div>
+    {% endif %}
+    <hr>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3 border-primary">
+      <h2 class="text-primary">{{ positions.count }}</h2>
+      <p class="mb-0">Total Positions</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3 border-info">
+      <h2 class="text-info">{{ total_applicants }}</h2>
+      <p class="mb-0">Total Applicants</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3 border-success">
+      <h2 class="text-success">{{ approved }}</h2>
+      <p class="mb-0">Approved</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3 border-warning">
+      <h2 class="text-warning">{{ pending }}</h2>
+      <p class="mb-0">Pending</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">My Positions</h5>
+        <a href="{% url 'post_position' %}" class="btn btn-success btn-sm">+ Post Position</a>
+      </div>
+      <div class="card-body">
+        {% if positions %}
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Department</th>
+                <th>Applicants</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for position in positions %}
+              <tr>
+                <td>{{ position.title }}</td>
+                <td>{{ position.department }}</td>
+                <td>{{ position.applications.count }}</td>
+                <td>
+                  {% if position.status == 'open' %}
+                    <span class="badge bg-success">Open</span>
+                  {% else %}
+                    <span class="badge bg-secondary">Closed</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="{% url 'view_applicants' position.id %}" class="btn btn-sm btn-outline-primary">View Applicants</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="text-muted text-center py-3">No positions posted yet. <a href="{% url 'post_position' %}">Post one now</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h5 class="mb-0">Quick Actions</h5>
+      </div>
+      <div class="card-body d-grid gap-2">
+        <a href="{% url 'post_position' %}" class="btn btn-success">Post New Position</a>
+       <a href="{% url 'all_applicants' %}" class="btn btn-outline-primary">View All Applicants</a>
+       <a href="{% url 'edit_company_profile' %}" class="btn btn-outline-secondary">Update Profile</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

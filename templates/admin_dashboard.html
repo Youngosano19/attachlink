@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-3">
+  <div class="col-12 d-flex justify-content-between align-items-center">
+    <div>
+      <h2>Admin Dashboard</h2>
+      <p class="text-muted">System overview — AttachLink</p>
+    </div>
+    <a href="/admin/" class="btn btn-danger btn-sm">Django Admin Panel</a>
+  </div>
+  <hr>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+  <div class="col-md-2">
+    <div class="card text-center p-3" style="border-left: 4px solid #0d6efd;">
+      <h2 class="text-primary">{{ total_students }}</h2>
+      <p class="mb-0 small text-muted">Students</p>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-center p-3" style="border-left: 4px solid #28a745;">
+      <h2 class="text-success">{{ total_companies }}</h2>
+      <p class="mb-0 small text-muted">Companies</p>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-center p-3" style="border-left: 4px solid #17a2b8;">
+      <h2 class="text-info">{{ total_positions }}</h2>
+      <p class="mb-0 small text-muted">Positions</p>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-center p-3" style="border-left: 4px solid #ffc107;">
+      <h2 class="text-warning">{{ total_applications }}</h2>
+      <p class="mb-0 small text-muted">Applications</p>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-center p-3" style="border-left: 4px solid #6c757d;">
+      <h2 class="text-secondary">{{ total_reports }}</h2>
+      <p class="mb-0 small text-muted">Reports</p>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-center p-3" style="border-left: 4px solid #dc3545;">
+      <h2 class="text-danger">{{ pending_companies }}</h2>
+      <p class="mb-0 small text-muted">Pending Companies</p>
+    </div>
+  </div>
+</div>
+
+<!-- Analytics Row -->
+<div class="row mb-4">
+  <!-- Applications by Status -->
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h6 class="mb-0">Applications by Status</h6>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="small">Approved</span>
+            <span class="small text-success fw-bold">{{ approved_applications }}</span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar bg-success" style="width: {% if total_applications %}{% widthratio approved_applications total_applications 100 %}{% else %}0{% endif %}%"></div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="small">Pending</span>
+            <span class="small text-warning fw-bold">{{ pending_applications }}</span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar bg-warning" style="width: {% if total_applications %}{% widthratio pending_applications total_applications 100 %}{% else %}0{% endif %}%"></div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="small">Rejected</span>
+            <span class="small text-danger fw-bold">{{ rejected_applications }}</span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar bg-danger" style="width: {% if total_applications %}{% widthratio rejected_applications total_applications 100 %}{% else %}0{% endif %}%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Companies -->
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h6 class="mb-0">Top Companies by Applicants</h6>
+      </div>
+      <div class="card-body">
+        {% for company in top_companies %}
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="small">{{ company.company_name }}</span>
+            <span class="small fw-bold text-primary">{{ company.app_count }}</span>
+          </div>
+          <div class="progress" style="height: 16px;">
+            <div class="progress-bar bg-primary" style="width: {% if top_companies.0.app_count %}{% widthratio company.app_count top_companies.0.app_count 100 %}{% else %}0{% endif %}%"></div>
+          </div>
+        </div>
+        {% empty %}
+          <p class="text-muted text-center">No data yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Company Approvals -->
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white d-flex justify-content-between">
+        <h6 class="mb-0">Pending Approvals</h6>
+        <span class="badge bg-danger">{{ pending_companies }}</span>
+      </div>
+      <div class="card-body">
+        {% if pending_company_list %}
+          {% for company in pending_company_list %}
+          <div class="d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded">
+            <div>
+              <strong class="small">{{ company.company_name }}</strong><br>
+              <small class="text-muted">{{ company.industry }}</small>
+            </div>
+            <a href="{% url 'approve_company' company.pk %}" class="btn btn-sm btn-success">Approve</a>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted text-center py-3">No pending approvals.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Users & Applications -->
+<div class="row">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h6 class="mb-0">Recent Users</h6>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Joined</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for u in recent_users %}
+            <tr>
+              <td>{{ u.username }}</td>
+              <td><span class="badge bg-secondary">{{ u.role }}</span></td>
+              <td>{{ u.date_joined|date:"M d, Y" }}</td>
+              <td>
+                {% if u.is_active %}
+                  <a href="{% url 'deactivate_user' u.pk %}" class="btn btn-sm btn-outline-danger">Deactivate</a>
+                {% else %}
+                  <span class="text-muted small">Inactive</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h6 class="mb-0">Recent Applications</h6>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Position</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for app in recent_applications %}
+            <tr>
+              <td>{{ app.student.username }}</td>
+              <td>{{ app.position.title }}</td>
+              <td>
+                {% if app.status == 'approved' %}
+                  <span class="badge bg-success">Approved</span>
+                {% elif app.status == 'rejected' %}
+                  <span class="badge bg-danger">Rejected</span>
+                {% else %}
+                  <span class="badge bg-warning text-dark">Pending</span>
+                {% endif %}
+              </td>
+              <td>{{ app.applied_at|date:"M d, Y" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

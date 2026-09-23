@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Hero Section -->
+<div class="row align-items-center py-5" style="min-height: 80vh;">
+  <div class="col-md-6">
+    <h1 class="display-4 fw-bold text-primary">AttachLink</h1>
+    <h4 class="text-muted mb-4">Empowering the Next Generation of Kenyan Professionals</h4>
+    <p class="lead mb-4">A free digital platform connecting university students with industrial attachment opportunities. Apply for positions, track your progress, and get structured feedback — all in one place.</p>
+    <div class="d-flex gap-3">
+      <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4">Get Started</a>
+      <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-4">Login</a>
+    </div>
+  </div>
+  <div class="col-md-6 text-center">
+    <div class="card shadow-lg p-4 border-0" style="background: linear-gradient(135deg, #0d6efd22, #0d6efd11);">
+      <div class="row g-3">
+        <div class="col-6">
+          <div class="card p-3 border-0 shadow-sm">
+            <h2 class="text-primary fw-bold">3</h2>
+            <p class="mb-0 small text-muted">User Roles</p>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card p-3 border-0 shadow-sm">
+            <h2 class="text-success fw-bold">100%</h2>
+            <p class="mb-0 small text-muted">Free Platform</p>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card p-3 border-0 shadow-sm">
+            <h2 class="text-warning fw-bold">∞</h2>
+            <p class="mb-0 small text-muted">Opportunities</p>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card p-3 border-0 shadow-sm">
+            <h2 class="text-info fw-bold">24/7</h2>
+            <p class="mb-0 small text-muted">Access</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- Features Section -->
+<div class="row py-5">
+  <div class="col-12 text-center mb-4">
+    <h2 class="fw-bold">How AttachLink Works</h2>
+    <p class="text-muted">A seamless experience for every stakeholder</p>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm border-0 p-4 text-center">
+      <div class="mb-3" style="font-size: 3rem;">🎓</div>
+      <h5 class="fw-bold">For Students</h5>
+      <p class="text-muted">Register, upload your CV, browse available attachment positions, apply online, submit weekly progress reports, and receive structured supervisor feedback — all from one dashboard.</p>
+      <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm mt-auto">Register as Student</a>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm border-0 p-4 text-center">
+      <div class="mb-3" style="font-size: 3rem;">🏢</div>
+      <h5 class="fw-bold">For Companies</h5>
+      <p class="text-muted">Post attachment positions, review student applications and CVs, approve or reject candidates, assign tasks, view weekly progress reports, and provide performance ratings.</p>
+      <a href="{% url 'register' %}" class="btn btn-outline-success btn-sm mt-auto">Register as Company</a>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm border-0 p-4 text-center">
+      <div class="mb-3" style="font-size: 3rem;">🏫</div>
+      <h5 class="fw-bold">For Universities</h5>
+      <p class="text-muted">Monitor all student attachment activities, verify student enrollments, approve company registrations, manage users, and generate reports on attachment outcomes system-wide.</p>
+      <a href="{% url 'register' %}" class="btn btn-outline-danger btn-sm mt-auto">Register as Admin</a>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- Process Section -->
+<div class="row py-5">
+  <div class="col-12 text-center mb-4">
+    <h2 class="fw-bold">The Attachment Journey</h2>
+    <p class="text-muted">From registration to completion in four simple steps</p>
+  </div>
+  <div class="col-md-3 text-center mb-4">
+    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:60px;height:60px;font-size:1.5rem;">1</div>
+    <h6 class="fw-bold">Register & Verify</h6>
+    <p class="text-muted small">Create your account, complete your profile and upload your student ID for verification.</p>
+  </div>
+  <div class="col-md-3 text-center mb-4">
+    <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:60px;height:60px;font-size:1.5rem;">2</div>
+    <h6 class="fw-bold">Browse & Apply</h6>
+    <p class="text-muted small">Browse available attachment positions and submit your application with a cover letter.</p>
+  </div>
+  <div class="col-md-3 text-center mb-4">
+    <div class="rounded-circle bg-warning text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:60px;height:60px;font-size:1.5rem;">3</div>
+    <h6 class="fw-bold">Work & Report</h6>
+    <p class="text-muted small">Once approved, complete your tasks and submit weekly progress reports to your supervisor.</p>
+  </div>
+  <div class="col-md-3 text-center mb-4">
+    <div class="rounded-circle bg-info text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:60px;height:60px;font-size:1.5rem;">4</div>
+    <h6 class="fw-bold">Get Feedback</h6>
+    <p class="text-muted small">Receive structured feedback and performance ratings from your supervisor each week.</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- CTA Section -->
+<div class="row py-5">
+  <div class="col-12 text-center">
+    <h2 class="fw-bold">Ready to Get Started?</h2>
+    <p class="text-muted mb-4">Join AttachLink today and take control of your industrial attachment journey.</p>
+    <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-5 me-3">Create Free Account</a>
+    <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg px-5">Login</a>
+  </div>
+</div>
+
+{% endblock %}

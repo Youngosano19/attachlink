@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-3">
+  <div class="col-12">
+    <h2>My Profile</h2>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card shadow-sm p-4 text-center">
+      <h5>{{ request.user.username }}</h5>
+      <p class="text-muted">{{ request.user.email }}</p>
+      <span class="badge bg-primary">{{ request.user.role }}</span>
+      <hr>
+      <p><strong>University:</strong> {{ profile.university }}</p>
+      <p><strong>Course:</strong> {{ profile.course }}</p>
+      <p><strong>Year of Study:</strong> {{ profile.year_of_study }}</p>
+<hr>
+<p><strong>Verification Status:</strong>
+  {% if profile.is_verified %}
+    <span class="badge bg-success">Verified ✓</span>
+  {% else %}
+    <span class="badge bg-warning text-dark">Pending Verification</span>
+  {% endif %}
+</p>
+{% if profile.student_id_document %}
+  <p class="small text-muted">Student ID uploaded ✓</p>
+{% else %}
+  <p class="small text-danger">No student ID uploaded yet</p>
+{% endif %}
+<hr>
+      <hr>
+     {% if profile.cv %}
+  <p><strong>My CV:</strong></p>
+  <embed src="{{ profile.cv.url }}" type="application/pdf" width="100%" height="400px"/>
+  <br>
+  <a href="{{ profile.cv.url }}" class="btn btn-outline-primary btn-sm mt-2" target="_blank">Open in New Tab</a>
+{% else %}
+  <p class="text-muted small">No CV uploaded yet. Upload a PDF below.</p>
+{% endif %}
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card shadow-sm p-4">
+      <h5>Update Profile</h5>
+      <hr>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="text-danger small">{{ field.errors }}</div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+        <a href="{% url 'student_dashboard' %}" class="btn btn-outline-secondary ms-2">Back to Dashboard</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

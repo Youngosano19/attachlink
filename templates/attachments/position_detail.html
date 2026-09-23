@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+  <div class="col-md-8">
+    <div class="card shadow">
+      <div class="card-body p-4">
+        <h3>{{ position.title }}</h3>
+        <p class="text-muted">{{ position.company.company_name }} — {{ position.location }}</p>
+        <hr>
+        <div class="row mb-3">
+          <div class="col-md-4"><strong>Department:</strong> {{ position.department }}</div>
+          <div class="col-md-4"><strong>Duration:</strong> {{ position.duration }}</div>
+          <div class="col-md-4"><strong>Slots:</strong> {{ position.slots }}</div>
+        </div>
+        <h5>Description</h5>
+        <p>{{ position.description }}</p>
+        <h5>Requirements</h5>
+        <p>{{ position.requirements }}</p>
+        <hr>
+        {% if already_applied %}
+          <div class="alert alert-info">You have already applied for this position.</div>
+        {% else %}
+          <a href="{% url 'apply_position' position.pk %}" class="btn btn-primary">Apply Now</a>
+        {% endif %}
+        <a href="{% url 'browse_positions' %}" class="btn btn-outline-secondary ms-2">Back</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

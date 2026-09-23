@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mt-4">
+  <div class="col-12">
+    <h2>Welcome, {{ user.username }}! 👋</h2>
+    <p class="text-muted">Role: <strong>{{ user.role }}</strong></p>
+    <hr>
+    <div class="row">
+      {% if user.role == 'student' %}
+        <div class="col-md-4">
+          <div class="card text-center p-3 shadow-sm">
+            <h5>My Applications</h5>
+            <p class="text-muted">View and track your applications</p>
+            <a href="#" class="btn btn-primary btn-sm">View</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center p-3 shadow-sm">
+            <h5>Browse Openings</h5>
+            <p class="text-muted">Find attachment opportunities</p>
+            <a href="#" class="btn btn-primary btn-sm">Browse</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center p-3 shadow-sm">
+            <h5>Weekly Reports</h5>
+            <p class="text-muted">Submit your progress</p>
+            <a href="#" class="btn btn-primary btn-sm">Submit</a>
+          </div>
+        </div>
+      {% elif user.role == 'company' %}
+        <div class="col-md-4">
+          <div class="card text-center p-3 shadow-sm">
+            <h5>Post Position</h5>
+            <p class="text-muted">Create attachment openings</p>
+            <a href="#" class="btn btn-success btn-sm">Post</a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center p-3 shadow-sm">
+            <h5>View Applicants</h5>
+            <p class="text-muted">Review student applications</p>
+            <a href="#" class="btn btn-success btn-sm">View</a>
+          </div>
+        </div>
+      {% elif user.role == 'admin' %}
+        <div class="col-md-4">
+          <div class="card text-center p-3 shadow-sm">
+            <h5>Manage Users</h5>
+            <p class="text-muted">Onboard students & companies</p>
+            <a href="/admin/" class="btn btn-danger btn-sm">Manage</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
